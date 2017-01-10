@@ -14,7 +14,7 @@ import os
 def r1(pattern,text):
     m=re.search(pattern,text)
     if m:
-        return m.group(1)
+        return m.group(1).strip("\r")
 
 def r1_of(patterns,text):
     for p in patterns:
@@ -45,14 +45,14 @@ for i,div in enumerate(div_all):
     config.clear()
     text=div.get_text().replace(u"：",":")
     try:
-        config['server']=r1(u"服务器IP:(.*)",text).strip("\r")
-        config['server_port']=int(r1(u"端口:(.*)",text).strip("\r"))
-        config['password']=r1(u"密码:(.*)",text).strip("\r")
-        config['method']=r1(u"加密方式:(.*)",text).strip("\r")
+        config['server']=r1(u"服务器IP:(.*)",text)
+        config['server_port']=int(r1(u"端口:(.*)",text))
+        config['password']=r1(u"密码:(.*)",text)
+        config['method']=r1(u"加密方式:(.*)",text)
         config['local_port']=local_port
         config_string=json.dumps(config,indent=2)
 
-        file="{}_{}.json".format(i,config['server'])
+        file="ss{}_{}.json".format(i,config['server'])
         print("config write to file: {}".format(file))
         print(config_string)
         with open(file,'w') as fw:
