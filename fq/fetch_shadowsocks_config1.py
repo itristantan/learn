@@ -39,6 +39,7 @@ config={'server':'192.168.18.10',
       # 'timeout':300
       }
 
+local_port=1080
 div_all=soup.find_all("div",class_="testvpnitem")
 for i,div in enumerate(div_all):
     config.clear()
@@ -48,9 +49,10 @@ for i,div in enumerate(div_all):
         config['server_port']=int(r1(u"端口:(.*)",text).strip("\r"))
         config['password']=r1(u"密码:(.*)",text).strip("\r")
         config['method']=r1(u"加密方式:(.*)",text).strip("\r")
+        config['local_port']=local_port
         config_string=json.dumps(config,indent=2)
 
-        file="shadowsocks{}.json".format(i+1)
+        file="{}_{}.json".format(i,config['server'])
         print("config write to file: {}".format(file))
         print(config_string)
         with open(file,'w') as fw:

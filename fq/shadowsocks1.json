@@ -1,6 +1,0 @@
-{
-  "method": "aes-256-cfb",
-  "password": "700806",
-  "server_port": 8883,
-  "server": "45.76.64.173"
-}
