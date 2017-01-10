@@ -15,7 +15,7 @@ def r1(pattern,text):
     m=re.search(pattern,text)
     if m:
         return m.group(1)
-        
+
 def r1_of(patterns,text):
     for p in patterns:
         x=r1(p,text)
@@ -31,30 +31,30 @@ soup=BeautifulSoup(r.text,"lxml")
 
 config={'server':'192.168.18.10',
       'server_port':8338,
-      'local_address':'127.0.0.1',
-      'local_port':1080,
       'password':'123456',
-      'timeout':300,
       'method':'aes-256-cfb',
-      'fast_open':False}
-      
+      # 'local_address':'127.0.0.1',
+      # 'local_port':1080,
+      # 'fast_open':False,
+      # 'timeout':300
+      }
+
 div_all=soup.find_all("div",class_="testvpnitem")
 for i,div in enumerate(div_all):
-    text=div.get_text().replace(u"：",":") 
+    config.clear()
+    text=div.get_text().replace(u"：",":")
     try:
-        config['server']=r1(u"服务器IP:(.*)",text).strip("\r")    
+        config['server']=r1(u"服务器IP:(.*)",text).strip("\r")
         config['server_port']=int(r1(u"端口:(.*)",text).strip("\r"))
-        config['password']=r1(u"密码:(.*)",text).strip("\r")    
-        config['method']=r1(u"加密方式:(.*)",text).strip("\r") 
-        config_string=json.dumps(config,indent=2)        
-        
+        config['password']=r1(u"密码:(.*)",text).strip("\r")
+        config['method']=r1(u"加密方式:(.*)",text).strip("\r")
+        config_string=json.dumps(config,indent=2)
+
         file="shadowsocks{}.json".format(i+1)
         print("config write to file: {}".format(file))
-        print(config_string)        
+        print(config_string)
         with open(file,'w') as fw:
             fw.write(config_string)
             fw.flush()
     except Exception as e:
         print(e)
-
-        
