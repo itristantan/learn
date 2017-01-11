@@ -1,5 +1,6 @@
 #!/bin/bash
 
+IFS=","
 dname=`pwd`
 projects_name=(leopard notebook samples learn project)
 

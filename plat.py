@@ -9,5 +9,8 @@ Created on 2017-01-10 21:18:57
 import os
 import platform
 
-plat=platform.system().lower()
+plat = platform.system().lower()
 print(plat)
+
+import sys
+print(sys.path)

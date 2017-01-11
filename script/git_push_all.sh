@@ -1,5 +1,6 @@
 #!/bin/bash
 
+IFS=","
 dname=`pwd`
 dts=`date +'%Y-%m-%d %H:%M:%S'`
 
