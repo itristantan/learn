@@ -1,0 +1,73 @@
+[
+  {
+    "server": "153.125.234.176",
+    "method": "aes-256-cfb",
+    "password": "kingss.win",
+    "ping": 53.0,
+    "server_port": 31774
+  },
+  {
+    "server": "153.125.234.178",
+    "method": "aes-256-cfb",
+    "password": "kingss.win",
+    "ping": 53.0,
+    "server_port": 31079
+  },
+  {
+    "server": "153.125.234.172",
+    "method": "aes-256-cfb",
+    "password": "kingss.win",
+    "ping": 55.0,
+    "server_port": 31027
+  },
+  {
+    "server": "153.125.234.172",
+    "method": "aes-256-cfb",
+    "password": "kingss.win",
+    "ping": 55.0,
+    "server_port": 31970
+  },
+  {
+    "server": "jp.ssip.club",
+    "method": "RC4-MD5",
+    "password": "71800260",
+    "ping": 129.0,
+    "server_port": "23333"
+  },
+  {
+    "local_port": 1080,
+    "server": "104.207.150.172",
+    "fast_open": false,
+    "server_port": 8641,
+    "method": "aes-256-cfb",
+    "password": "320056",
+    "local_address": "127.0.0.1",
+    "ping": 195.0,
+    "timeout": 300
+  },
+  {
+    "server": "us.ssip.club",
+    "method": "AES-256-CFB",
+    "password": "76594428",
+    "ping": 204.0,
+    "server_port": "443"
+  },
+  {
+    "server": "usa.ssip.club",
+    "method": "AES-256-CFB",
+    "password": "78818674",
+    "ping": 272.0,
+    "server_port": "443"
+  },
+  {
+    "local_port": 1080,
+    "server": "128.199.214.101",
+    "fast_open": false,
+    "server_port": 8802,
+    "method": "aes-256-cfb",
+    "password": "345107",
+    "local_address": "127.0.0.1",
+    "ping": 297.0,
+    "timeout": 300
+  }
+]

@@ -1,0 +1,53 @@
+[
+  {
+    "server_port": "23333",
+    "total_time": 0.47730000000000006,
+    "local_port": 1081,
+    "server": "jp.ssip.club",
+    "method": "RC4-MD5",
+    "password": "45981024",
+    "ping": 151.0
+  },
+  {
+    "server_port": "443",
+    "total_time": 0.696,
+    "local_port": 1083,
+    "server": "us.ssip.club",
+    "method": "AES-256-CFB",
+    "password": "22350621",
+    "ping": 205.0
+  },
+  {
+    "server_port": 8465,
+    "local_address": "127.0.0.1",
+    "local_port": 1082,
+    "server": "45.76.64.173",
+    "timeout": 300,
+    "method": "aes-256-cfb",
+    "password": "311113",
+    "fast_open": false,
+    "total_time": 0.7096,
+    "ping": 171.0
+  },
+  {
+    "server_port": "443",
+    "total_time": 1.4492,
+    "local_port": 1084,
+    "server": "usa.ssip.club",
+    "method": "AES-256-CFB",
+    "password": "35225351",
+    "ping": 271.0
+  },
+  {
+    "server_port": 8632,
+    "local_address": "127.0.0.1",
+    "local_port": 1085,
+    "server": "128.199.214.101",
+    "timeout": 300,
+    "method": "aes-256-cfb",
+    "password": "776593",
+    "fast_open": false,
+    "total_time": 1.6614,
+    "ping": 298.0
+  }
+]

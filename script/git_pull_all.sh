@@ -2,7 +2,7 @@
 
 IFS=","
 dname=`pwd`
-projects_name=(leopard notebook samples learn project)
+projects_name=(leopard notebook samples learn)
 
 for var in ${projects_name[@]}
 do

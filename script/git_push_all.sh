@@ -4,7 +4,7 @@ IFS=","
 dname=`pwd`
 dts=`date +'%Y-%m-%d %H:%M:%S'`
 
-projects_name=(leopard notebook samples learn project)
+projects_name=(leopard notebook samples learn)
 
 for var in ${projects_name[@]}
 do
@@ -16,7 +16,7 @@ do
 
     echo "git commit -m $dts"
     git commit -m "$dts"
-    
+
     echo "git push"
     git push
 

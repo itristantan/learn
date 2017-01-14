@@ -1,0 +1,18 @@
+ 2017-01-14 18:27:18 INFO: initializing ciphers... aes-256-cfb
+ 2017-01-14 18:27:18 INFO: listening at 127.0.0.1:1080
+ 2017-01-14 18:27:36 INFO: connect to www.google.com:443
+ 2017-01-14 18:27:37 INFO: connect to ogs.google.com:443
+ 2017-01-14 18:27:43 INFO: connect to plus.google.com:443
+ 2017-01-14 18:28:03 INFO: connect to mtalk.google.com:5228
+ 2017-01-14 18:29:04 INFO: TCP connection timeout
+ 2017-01-14 18:29:04 INFO: connect to mtalk.google.com:5228
+ 2017-01-14 18:29:20 INFO: TCP connection timeout
+ 2017-01-14 18:29:20 INFO: TCP connection timeout
+ 2017-01-14 18:29:26 INFO: TCP connection timeout
+ 2017-01-14 18:30:04 INFO: TCP connection timeout
+ 2017-01-14 18:30:04 INFO: connect to mtalk.google.com:5228
+ 2017-01-14 18:31:05 INFO: TCP connection timeout
+ 2017-01-14 18:31:05 INFO: connect to mtalk.google.com:5228
+ 2017-01-14 18:31:05 INFO: connect to plus.google.com:443
+ 2017-01-14 18:31:06 INFO: connect to google.com:443
+ 2017-01-14 18:31:25 INFO: closed gracefully
