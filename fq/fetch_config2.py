@@ -31,6 +31,7 @@ def r1_of(patterns,text):
 
 fake_headers={"User-Agent":"Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36"}
 
+#感谢分享
 url="http://www.ysguan.com/page/testss.html"
 
 r=requests.get(url,headers=fake_headers)

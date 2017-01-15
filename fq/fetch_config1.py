@@ -1,14 +1,16 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# @Date    : 2017-01-04 01:58:36
-# @Author  : tristan (i_tristan@163.com)
-# @Link    :
-# @Version : $Id$
+"""
+Created on 2017-01-13 14:15:14
+
+@author: tristan
+"""
 
 import requests
 from common import config_save,parse_config
 from pathlib import Path
 
+#感谢分享
 url="https://superfreess.arukascloud.io/2ac56b41-0592-403e-9948-25faef4bc124"
 
 workdir=Path('config')

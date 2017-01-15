@@ -22,6 +22,7 @@ def r1(pattern,text):
     if m:
         return m.group(1)
 
+#感谢分享
 url="https://freevpnss.cc/#shadowsocks"
 
 r=requests.get(url)
