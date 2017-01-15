@@ -3,7 +3,7 @@
 """
 Created on 2017-01-14 12:03:11
 
-@author: tanxin
+@author: tristan
 """
 
 def foo(*args, **kwargs):

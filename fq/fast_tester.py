@@ -3,7 +3,7 @@
 """
 Created on 2017-01-13 14:15:14
 
-@author: tanxin
+@author: tristan
 """
 
 import multiprocessing

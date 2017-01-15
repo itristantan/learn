@@ -2,7 +2,7 @@
 """
 Created on Wed Jan  4 18:00:33 2017
 
-@author: tanxin
+@author: tristan
 """
 
 from common import config_save,parse_config

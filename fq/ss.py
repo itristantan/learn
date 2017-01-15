@@ -3,7 +3,7 @@
 """
 Created on 2017-01-14 09:26:44
 
-@author: tanxin
+@author: tristan
 """
 
 from subprocess import Popen,PIPE,getoutput

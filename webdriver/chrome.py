@@ -2,7 +2,7 @@
 """
 Created on Sun Dec 25 11:40:19 2016
 
-@author: tanxin
+@author: tristan
 """
 
 from selenium import webdriver
@@ -40,5 +40,5 @@ url="http://whatsmyuseragent.com/"
 driver.get(url)
 
 #print(driver.page_source())
-    
+
 driver.close()

@@ -2,7 +2,7 @@
 """
 Created on Sun Jan 15 11:20:31 2017
 
-@author: tanxin
+@author: tristan
 """
 
 from subprocess import getstatusoutput

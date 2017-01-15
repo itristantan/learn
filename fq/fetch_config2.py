@@ -2,7 +2,7 @@
 """
 Created on Mon Jan  2 23:01:08 2017
 
-@author: tanxin
+@author: tristan
 """
 
 import requests

@@ -3,7 +3,7 @@
 """
 Created on 2017-01-13 16:58:57
 
-@author: tanxin
+@author: tristan
 """
 
 import os

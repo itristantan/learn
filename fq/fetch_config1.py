@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # @Date    : 2017-01-04 01:58:36
-# @Author  : tanxin (i_tristan@163.com)
+# @Author  : tristan (i_tristan@163.com)
 # @Link    :
 # @Version : $Id$
 

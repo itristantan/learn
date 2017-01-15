@@ -3,7 +3,7 @@
 """
 Created on 2017-01-13 20:37:10
 
-@author: tanxin
+@author: tristan
 """
 
 import threading

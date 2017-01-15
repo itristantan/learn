@@ -3,7 +3,7 @@
 """
 Created on 2017-01-13 20:01:37
 
-@author: tanxin
+@author: tristan
 """
 
 import time

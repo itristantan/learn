@@ -3,7 +3,7 @@
 """
 Created on 2017-01-13 21:07:04
 
-@author: tanxin
+@author: tristan
 """
 
 import sys
