@@ -7,17 +7,18 @@ Created on 2017-01-14 09:26:44
 """
 
 from subprocess import Popen,PIPE,getoutput
-import os
+from common import config_load
+from pathlib import Path
 import time
 import requests
 import json
 import sys
-import glob
 import re
 import socket
+import os
 
-workdir="config"
-win_app="sslocal.exe"
+workdir=Path.cwd()
+win_app="sslocal"
 
 def get_ipaddr(host_or_ip):
     if re.match('\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}',host_or_ip):
@@ -50,40 +51,6 @@ def ipinfo_region(host_or_ip):
         pass
     return region
 
-def config_load(file_path):
-    '''
-    加载json配置
-    '''
-    try:
-        with open(file_path,'r',encoding="utf-8") as f:
-            ret=json.load(f)
-            return ret
-    except Exception as e:
-        print(e)
-
-def config_save(objdata,file_path):
-    '''
-    保存json配置
-    '''
-    try:
-        print("write to file: {}".format(file_path))
-        with open(file_path,'w',encoding="utf-8") as fw:
-            json.dump(objdata,fw,indent=2,ensure_ascii=False)
-    except Exception as e:
-        print(e)
-
-def get_config(workdir="."):
-
-    result=[]
-    workdir=os.path.abspath(workdir)
-    file_rule=os.path.join(workdir,"ss*.json")
-    for file in glob.glob(file_rule):
-        print("load file: {}".format(file))
-        config=config_load(file)
-        if config:
-            result.append(config)
-    return result
-
 def run_app(win_app,config,log_file="shadowsocks.log"):
     #检查配置
     field=['server', 'server_port', 'method', 'password', 'local_port']
@@ -112,11 +79,9 @@ def run_app(win_app,config,log_file="shadowsocks.log"):
 
 if __name__ == '__main__':
 
-    workdir=os.path.abspath(workdir)
     temp_path=os.getenv("TEMP")
     log_file=os.path.join(temp_path,"shadowsocks.log")
-    config_file=os.path.join(workdir,"configs.txt")
-    configs=config_load(config_file)
+    configs=config_load(workdir/"configs.txt")
     region_result={}
 
     if not configs:

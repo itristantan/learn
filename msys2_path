@@ -1,3 +1,0 @@
-# python for msys2
-export PATH=/d/Anaconda2:/d/Anaconda2/Scripts:/d/Anaconda2/Library/bin:$PATH
-export PATH=/d/Miniconda2:/d/Miniconda2/Scripts:/d/Miniconda2/Library/bin:$PATH

@@ -1,66 +1,26 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on 2017-01-12 16:49:39
+Created on 2017-01-13 14:15:14
 
 @author: tanxin
-
-查找最快的shadowsocks服务器
-
 """
 
 import multiprocessing
 from subprocess import Popen,PIPE,getoutput
-from io import BytesIO
-import pycurl
+from common import config_load,config_save,fetch_tester
+from pathlib import Path
 import time
 import os
 import sys
-from ss import config_load,config_save
 
-workdir="config"
-win_app="sslocal.exe"
-url1="http://www.google.co.jp"
-url2="http://www.python.org"
-url=url1
+workdir=Path.cwd()
+win_app="sslocal"
+# url="http://www.python.org"
+url="http://www.google.co.jp"
 DEBUG=0
 
-def fetch_tester(url="http://www.baidu.com",**kwargs):
-    '''
-    代理服务器连通性测试
-    代理地址端口: 127.0.0.1:1080 代理类型：socks5-hostname PROXYTYPE=7
-    返回：成功，返回 响应时间，失败，返回 -1
-    '''
-    http_code=None
-    buffer=BytesIO()
-    c=pycurl.Curl()
-    try:
-        c.setopt(c.URL,url)
-        c.setopt(c.CONNECTTIMEOUT, 8)
-        c.setopt(c.TIMEOUT, 32)
-        c.setopt(c.FOLLOWLOCATION, 1)
-        c.setopt(c.MAXREDIRS, 5)
-        c.setopt(c.SSL_VERIFYPEER,0)
-        c.setopt(c.SSL_VERIFYHOST,0)
-        c.setopt(c.WRITEDATA,buffer)
-        c.setopt(c.NOSIGNAL,1)
-        #c.setopt(c.VERBOSE,1)
-        for k,v in kwargs.items():
-            c.setopt(vars(pycurl)[k],v)
-        c.perform()
-        http_code=c.getinfo(c.RESPONSE_CODE)
-        total_time=c.getinfo(c.TOTAL_TIME)
-        print("response code: {} ,total time: {}".format(http_code,total_time))
-    except Exception as e:
-        print(e)
-    finally:
-        c.close()
-        if http_code == 200:
-            return float(total_time)
-        else:
-            return -1
-
-def proxy_tester(config,url="http://www.baidu.com",num=10):
+def proxy_tester(config,url,num=10):
 
     assert num > 0
     global win_app
@@ -96,20 +56,9 @@ def proxy_tester(config,url="http://www.baidu.com",num=10):
     print(ret)
     return total_time
 
-def check_config(config):
-    if isinstance(config,dict):
-        field=['server', 'server_port', 'method', 'password']
-        for k in field:
-            if k in config.keys() and config[k]:
-                continue
-            else:
-                return
-        return True
-
 if __name__ == "__main__":
 
-    workdir=os.path.abspath(workdir)
-    config_file=os.path.join(workdir,"configs.txt")
+    config_file=workdir/'configs.txt'
     configs=config_load(config_file)
     config_result=[]
 
@@ -132,8 +81,9 @@ if __name__ == "__main__":
     for config,res in zip(configs,result):
         total_time=res.get()
         print("host:{}, port: {}, total time:{}".format(config['server'],config['server_port'],total_time))
-        config['total_time']=total_time if total_time > 0 else 9999.8
-        config_result.append(config)
+        if total_time > 0:
+            config['total_time']=total_time
+            config_result.append(config)
 
     configs=sorted(config_result,key=lambda k:k['total_time'])
     config_save(configs,config_file)
