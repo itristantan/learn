@@ -5,7 +5,7 @@ Created on Sun Jan 15 11:20:31 2017
 @author: tristan
 """
 
-from common import config_load,config_save,get_config
+from common import config_save,get_config
 from subprocess import getstatusoutput
 import multiprocessing
 from pathlib import Path
@@ -13,8 +13,11 @@ import platform
 import sys
 import time
 import re
+import os
 
-workdir=Path.cwd()
+home = Path(os.path.expanduser("~"))
+workdir=home/'.ss'
+
 plat=platform.system().lower()
 
 if plat == 'windows':
@@ -40,7 +43,7 @@ if __name__ == '__main__':
 
     start=time.time()
 
-    configs=get_config(workdir/"config") #加载配置，文件名规则："ss*.json"
+    configs=get_config(workdir) #加载配置，文件名规则："ss*.json"
     if not configs:
         print("没有加载到配置!")
         sys.exit(1)
@@ -66,12 +69,12 @@ if __name__ == '__main__':
     for i in range(len(configs)):
         host=configs[i]['server']
         if host in ping_result.keys():
-            configs[i]['ping']=ping_result[host]
+            configs[i]['ping_time']=ping_result[host]
         else:
-            configs[i]['ping']=9999
+            configs[i]['ping_time']=9999
 
-    configs=sorted(configs,key=lambda k:k['ping'])
-    config_save(configs,workdir/"configs.txt")
+    configs=sorted(configs,key=lambda k:k['ping_time'])
+    config_save(configs,workdir/"configs.json")
 
     end=time.time()
     print("Run Time: {}".format(end-start))

@@ -10,8 +10,13 @@ from bs4 import BeautifulSoup
 import re
 from common import parse_config,config_save
 from pathlib import Path
+import os
 
-workdir=Path('config')
+home = Path(os.path.expanduser("~"))
+workdir=home/'.ss'
+if not workdir.exists():
+    workdir.mkdir()
+
 FILENAME="ss2_{}_{}.json"
 
 for file in workdir.glob("ss2*.json"):
@@ -36,15 +41,6 @@ url="http://www.ysguan.com/page/testss.html"
 
 r=requests.get(url,headers=fake_headers)
 soup=BeautifulSoup(r.text,"lxml")
-
-# config={'server':'192.168.18.10',
-#       'server_port':8338,
-#       'local_address':'127.0.0.1',
-#       'local_port':1080,
-#       'password':'123456',
-#       'timeout':300,
-#       'method':'aes-256-cfb',
-#       'fast_open':False}
 
 div_all=soup.find_all("div",class_="testvpnitem")
 for i,div in enumerate(div_all):

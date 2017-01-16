@@ -6,10 +6,11 @@ Created on 2017-01-13 14:15:14
 @author: tristan
 """
 
-import multiprocessing
 from subprocess import Popen,PIPE,getoutput
 from common import config_load,config_save,fetch_tester
 from pathlib import Path
+import threading
+import queue
 import time
 import os
 import sys
@@ -39,7 +40,7 @@ def proxy_tester(config,url,num=10):
     print(command_line)
     p=Popen(command_line,stdin=PIPE,stdout=PIPE,stderr=PIPE,shell=True)
     print("pid: {}".format(p.pid))
-    time.sleep(8)
+    time.sleep(10)
 
     print("测试连接...")
     total_time=0.
@@ -52,11 +53,23 @@ def proxy_tester(config,url,num=10):
     total_time=total_time/num
     print("{}次平均请求时间: {}".format(num,total_time))
 
-    print("杀死进程，kill %s"%p.pid)
+    print("杀死进程，kill {}".format(p.pid))
     command_line="taskkill /f /t /pid {}".format(p.pid)
     ret=getoutput(command_line)
     print(ret)
     return total_time
+
+def worker(url,port):
+    while 1:
+        item = task_queue.get()
+        if item is None:
+            break
+        item['local_port']=port
+        total_time=proxy_tester(item,url)
+        item['total_time']=total_time if total_time >0 else 9999.3
+        done_queue.put(item)
+        task_queue.task_done()
+        # time.sleep(0.01)
 
 if __name__ == "__main__":
 
@@ -72,23 +85,40 @@ if __name__ == "__main__":
 
     result=[]
     length=len(configs)
-    process_number=length if length < 9 else 8
-    pool = multiprocessing.Pool(processes=process_number)
-    local_port=1081
-    for config in configs:
-        config['local_port']=local_port
-        result.append(pool.apply_async(proxy_tester,(config,url)))
-        local_port+=1
-    pool.close()
-    pool.join()
+    num_worker_threads=length if length < 9 else 9
 
-    for config,res in zip(configs,result):
-        total_time=res.get()
-        print("host:{}, port: {}, total time:{}".format(config['server'],config['server_port'],total_time))
-        #config['total_time']=total_time if total_time > 0 else 9999.9
-        if total_time > 0: #清理不能连接的ss服务器
-            config['total_time']=total_time
-            config_result.append(config)
+    task_queue = queue.Queue()
+    done_queue = queue.Queue()
 
-    configs=sorted(config_result,key=lambda k:k['total_time'])
+    threads = []
+    port=1081
+    for i in range(num_worker_threads):
+        t = threading.Thread(target=worker,args=(url,port))
+        t.start()
+        threads.append(t)
+        port+=1
+
+    for item in configs:
+        task_queue.put(item)
+
+    # block until all tasks are done
+    task_queue.join()
+
+    # stop workers
+    for i in range(num_worker_threads):
+        task_queue.put(None)
+
+    configs=[]
+    while not done_queue.empty():
+        configs.append(done_queue.get())
+
+    configs=sorted(configs,key=lambda k:k['total_time'])
     config_save(configs,config_file)
+    config=configs[0]
+    config['local_port']=1080
+    config_save(config,home/'shadowsocks.json')
+
+    for cfg in configs:
+        print("host:{},port:{},total time:{:.2f}".format(cfg['server'],
+                                                         cfg['server_port'],
+                                                         cfg['total_time']))

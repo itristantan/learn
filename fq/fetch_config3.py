@@ -10,11 +10,17 @@ from pathlib import Path
 from bs4 import BeautifulSoup
 import requests
 import re
+import os
 
-workdir=Path('config')
+home = Path(os.path.expanduser("~"))
+workdir=home/'.ss'
+if not workdir.exists():
+    workdir.mkdir()
+    
 FILENAME="ss3_{}_{}.json"
 
 for file in workdir.glob("ss3*.json"):
+    print("unlink {}".format(file))
     file.unlink()
 
 def r1(pattern,text):

@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on 2017-01-13 20:01:37
+Created on 2017-01-16 10:52:15
 
-@author: tristan
+@author: tanxin
 """
 
 import threading

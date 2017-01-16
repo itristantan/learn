@@ -46,7 +46,7 @@ def ipinfo_region(ip):
     region="unknow"
     try:
         if checkipvalid(ip) == 0:
-            ip=socket.gethostbyname(ip) #获取真实ip地址        
+            ip=socket.gethostbyname(ip) #获取真实ip地址
         url="http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=json&ip={}".format(ip)
         r=requests.get(url)
         if r.status_code == 200:
@@ -56,7 +56,7 @@ def ipinfo_region(ip):
                 region=obj['country']+' '+obj['province']
     except Exception as e:
         print(e)
-    return region        
+    return region
 
 def run_winapp(win_app,config):
 
@@ -78,7 +78,7 @@ def run_winapp(win_app,config):
     p.kill()
 
 if __name__ == '__main__':
-  
+
     configs=config_load(workdir/"configs.json")
     region_result={}
 

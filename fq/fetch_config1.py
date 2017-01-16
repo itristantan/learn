@@ -9,14 +9,21 @@ Created on 2017-01-13 14:15:14
 import requests
 from common import config_save,parse_config
 from pathlib import Path
+import os
+import sys
 
 #感谢分享
 url="https://superfreess.arukascloud.io/2ac56b41-0592-403e-9948-25faef4bc124"
 
-workdir=Path('config')
+home = Path(os.path.expanduser("~"))
+workdir=home/'.ss'
+if not workdir.exists():
+    workdir.mkdir()
+
 FILENAME="ss1_{}_{}.json"
 
 for file in workdir.glob("ss1*.json"):
+    print("unlink {}".format(file))
     file.unlink()
 
 obj=None
