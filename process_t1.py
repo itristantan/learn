@@ -3,14 +3,14 @@
 """
 Created on 2017-01-16 16:34:34
 
-@author: tanxin
+@author: tristan
 """
 
 import multiprocessing
 import time
 import os
 
-def func(msg):    
+def func(msg):
     pid=os.getpid()
     ppid=os.getppid()
     time.sleep(0.1)

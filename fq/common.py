@@ -5,13 +5,9 @@ Created on Sun Jan 15 11:20:31 2017
 @author: tristan
 """
 
-from subprocess import getstatusoutput
-from pathlib import Path
 from io import BytesIO
 import pycurl
-import platform
 import json
-import re
 
 def config_load(path_file):
     '''
@@ -90,4 +86,4 @@ def fetch_tester(url,**kwargs):
         if http_code == 200:
             return float(total_time)
         else:
-            return -1
+            return 9999.1

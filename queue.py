@@ -3,7 +3,7 @@
 """
 Created on 2017-01-16 10:52:15
 
-@author: tanxin
+@author: tristan
 """
 
 import threading
@@ -20,10 +20,10 @@ def worker(port):
         item="#{},{},item={}---------127.0.0.1:{}".format(threadname,ident,item,port)
         done_queue.put(item)
         task_queue.task_done()
-        time.sleep(0.01)        
+        time.sleep(0.01)
 
 if __name__ == "__main__":
-    
+
     num_worker_threads=4
     task_queue = queue.Queue()
     done_queue = queue.Queue()
@@ -41,7 +41,7 @@ if __name__ == "__main__":
 
     configs=list(range(10))
     for config in configs:
-        task_queue.put(config)        
+        task_queue.put(config)
 
     task_queue.join()
 

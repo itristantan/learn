@@ -10,17 +10,20 @@ import multiprocessing
 from subprocess import Popen,PIPE,getoutput
 from common import config_load,config_save,fetch_tester
 from pathlib import Path
+import platform
+import shlex
 import time
 import os
 import sys
 
 home = Path(os.path.expanduser("~"))
-workdir=home/'.ss'
 
 win_app="sslocal"
-url="http://www.google.co.jp"
+url="http://www.google.co.jp"  #test url
 
 DEBUG=0
+
+plat=platform.system().lower()
 
 def proxy_tester(config,url,num=10):
 
@@ -37,7 +40,8 @@ def proxy_tester(config,url,num=10):
                               local_port=local_port)
     print("启动进程...")
     print(command_line)
-    p=Popen(command_line,stdin=PIPE,stdout=PIPE,stderr=PIPE,shell=True)
+    args=shlex.split(command_line)
+    p=Popen(args,stdin=PIPE,stdout=PIPE,stderr=PIPE,shell=False)
     print("pid: {}".format(p.pid))
     time.sleep(8)
 
@@ -45,7 +49,7 @@ def proxy_tester(config,url,num=10):
     total_time=0.
     for i in range(num):
         total_time+=fetch_tester(url,PROXY='127.0.0.1',PROXYPORT=local_port,PROXYTYPE=7,VERBOSE=DEBUG)
-        if total_time < -3:
+        if total_time < 19999:
             break
         time.sleep(0.2)
 
@@ -53,17 +57,16 @@ def proxy_tester(config,url,num=10):
     print("{}次平均请求时间: {}".format(num,total_time))
 
     print("杀死进程，kill %s"%p.pid)
-    command_line="taskkill /f /t /pid {}".format(p.pid)
-    ret=getoutput(command_line)
-    print(ret)
+    if plat == 'windows':
+        cmd="taskkill /f /t /pid {}".format(p.pid)
+        print(getoutput(cmd))
+    p.kill()
     return total_time
 
 if __name__ == "__main__":
 
-    config_file=workdir/'configs.json'
-    #configs=get_config(workdir) #加载配置，文件名规则："ss*.json"
+    config_file=home/'configs.json'
     configs=config_load(config_file)
-    config_result=[]
 
     if not configs:
         print("没有加载到配置!")
@@ -82,13 +85,19 @@ if __name__ == "__main__":
     pool.close()
     pool.join()
 
+    config_result=[]
     for config,res in zip(configs,result):
         total_time=res.get()
-        print("host:{}, port: {}, total time:{}".format(config['server'],config['server_port'],total_time))
-        #config['total_time']=total_time if total_time > 0 else 9999.9
-        if total_time > 0: #清理不能连接的ss服务器
+        if total_time < 999:
             config['total_time']=total_time
             config_result.append(config)
 
+    if len(config_result) == 0: sys.exit(1)
     configs=sorted(config_result,key=lambda k:k['total_time'])
     config_save(configs,config_file)
+
+    print("*"*60)
+    sortedkeys=['server','server_port','password','method','total_time']
+    for cfg in configs:
+        s=", ".join([str(cfg[k]) for k in sortedkeys if k in cfg.keys()])
+        print(s)

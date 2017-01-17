@@ -63,7 +63,6 @@ if __name__ == '__main__':
     for host,res in zip(ip_list,result):
         ping=res.get()
         ping=float(ping) if ping else 9999.0
-        print("host: {}, ping: {}ms".format(host,ping))
         ping_result[host]=ping
 
     for i in range(len(configs)):
@@ -74,7 +73,13 @@ if __name__ == '__main__':
             configs[i]['ping_time']=9999
 
     configs=sorted(configs,key=lambda k:k['ping_time'])
-    config_save(configs,workdir/"configs.json")
+    config_save(configs,home/"configs.json")
+
+    print("*"*60)
+    sortedkeys=['server','server_port','password','method','ping_time']
+    for cfg in configs:
+        s=", ".join([str(cfg[k]) for k in sortedkeys if k in cfg.keys()])
+        print(s)
 
     end=time.time()
     print("Run Time: {}".format(end-start))
