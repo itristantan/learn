@@ -30,10 +30,9 @@ def ping(host,count=3,timeout=1):
     print("%s is down."%host)
     return 9999.0
 
+if __name__ == "__main__":
 
-host="www.baidu.com"
-time=ping(host,3)
+    host="www.baidu.com"
+    time=ping(host,3)
 
-print(time)
-
-
+    print(time)

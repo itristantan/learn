@@ -14,7 +14,7 @@ import os
 import time
 
 home = Path(os.path.expanduser("~"))
-win_app="sslocal"
+win_app="sslocal.exe"
 
 if __name__ == '__main__':
 

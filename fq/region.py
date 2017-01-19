@@ -74,6 +74,13 @@ if __name__ == '__main__':
         s=", ".join([str(cfg[k]) for k in sortedkeys if k in cfg.keys()])
         print(s)
 
+    cfg=configs[0]
+    cfg['local_port']=1080
+    if 'ping_time' in cfg.keys(): cfg.pop('ping_time')
+    if 'total_time' in cfg.keys(): cfg.pop('total_time')
+    if 'region' in cfg.keys(): cfg.pop('region')
+    config_save(cfg,home/'shadowsocks.json')
+
     if len(region_result) != region_length:
         config_save(region_result,home/'region.json')
 
